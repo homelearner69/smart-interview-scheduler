@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
+    "start": "node server.js",
+    "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -28,6 +28,7 @@
     "@microsoft/microsoft-graph-types": "^1.35.0",
     "@ng-bootstrap/ng-bootstrap": "^9.1.0",
     "bootstrap": "^4.6.0",
+    "express": "^4.17.1",
     "file-saver": "^2.0.5",
     "form-control": "^1.0.0",
     "moment-timezone": "^0.5.33",
