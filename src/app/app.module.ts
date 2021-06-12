@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { HomeComponent } from './home/home.component';
 import { AlertsComponent } from './alerts/alerts.component';
+import { DatePipe } from '@angular/common';
 import { IPublicClientApplication,
   PublicClientApplication,
   BrowserCacheLocation } from '@azure/msal-browser';
@@ -59,13 +60,15 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     AppRoutingModule,
     NgbModule,
     MsalModule,
-    FullCalendarModule
+    FullCalendarModule,
+    ReactiveFormsModule
   ],
   providers: [
     {
       provide: MSAL_INSTANCE,
       useFactory: MSALInstanceFactory
     },
+    DatePipe,
     MsalService
   ],
   bootstrap: [AppComponent]
