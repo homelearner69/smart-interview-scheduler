@@ -45,7 +45,7 @@ export class NewEventComponent implements OnInit {
     private exportExcelService: ExportExcelService,
     private alertsService: AlertsService) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.getValueChanges();
   }
 
@@ -60,7 +60,7 @@ export class NewEventComponent implements OnInit {
         this.alertsService.addError('Error creating event.', error.message);
       });
 
-      this.mainStorage.push(this.storageValues);
+      this.mainStorage.push({...this.storageValues});
       this.saveToLocalStorage();
   }
 
