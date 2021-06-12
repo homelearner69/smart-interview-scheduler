@@ -6,6 +6,9 @@ import * as MicrosoftGraph from '@microsoft/microsoft-graph-types';
 import { AuthService } from '../auth.service';
 import { GraphService } from '../graph.service';
 import { AlertsService } from '../alerts.service';
+import { CalendarOptions } from '@fullcalendar/angular';
+
+//import {Event, DateTimeTimeZone } from '../event';
 
 @Component({
   selector: 'app-calendar',
@@ -15,6 +18,10 @@ import { AlertsService } from '../alerts.service';
 export class CalendarComponent implements OnInit {
 
   public events?: MicrosoftGraph.Event[];
+  
+  eventAry: any =[];
+
+  calendarOptions: CalendarOptions ={};
 
   constructor(
     private authService: AuthService,
@@ -22,27 +29,62 @@ export class CalendarComponent implements OnInit {
     private alertsService: AlertsService) { }
 
   ngOnInit() {
-    // Convert the user's timezone to IANA format
-    const ianaName = findIana(this.authService.user?.timeZone ?? 'UTC');
-    const timeZone = ianaName![0].valueOf() || this.authService.user?.timeZone || 'UTC';
+    // // Convert the user's timezone to IANA format
+    // const ianaName = findIana(this.authService.user?.timeZone ?? 'UTC');
+    // const timeZone = ianaName![0].valueOf() || this.authService.user?.timeZone || 'UTC';
 
-    // Get midnight on the start of the current week in the user's timezone,
-    // but in UTC. For example, for Pacific Standard Time, the time value would be
-    // 07:00:00Z
-    var startOfWeek = moment.tz(timeZone).startOf('week').utc();
-    var endOfWeek = moment(startOfWeek).add(7, 'day');
+    // // Get midnight on the start of the current week in the user's timezone,
+    // // but in UTC. For example, for Pacific Standard Time, the time value would be
+    // // 07:00:00Z
+    // var startOfWeek = moment.tz(timeZone).startOf('week').utc();
+    // var endOfWeek = moment(startOfWeek).add(7, 'day');
 
-    this.graphService.getCalendarView(
-      startOfWeek.format(),
-      endOfWeek.format(),
-      this.authService.user?.timeZone ?? 'UTC')
-        .then((events) => {
-          this.events = events;
-          // Temporary to display raw results
-          // this.alertsService.addSuccess('Events from Graph', JSON.stringify(events, null, 2));
+    // console.log(this.authService.user?.displayName);
+
+    // this.graphService.getEvents()
+    //   .then((events) => {
+    //     this.events = events;
+    //     console.log(events);
+    this.graphService.getEvents()
+      .then((events) => {
+        this.events = events;
+        console.log(events);
+
+        this.events?.forEach(obj => {
+          var title = obj.subject;
+          //var date = obj.start?.dateTime?.split('T')[0];
+          var start = obj.start?.dateTime;
+          var end = obj.end?.dateTime;
+
+          const ev = { title : title, start  : start, end : end};
+          this.eventAry.push(ev);
         });
+        this.calendarOptions;
+        console.log(this.eventAry);
+        
+        this.calendarOptions = {
+          initialView: 'dayGridMonth',
+          events: this.eventAry
+        }
+      }).catch((error) => {
+        console.log(error);
+      });
+
+
+    // this.graphService.getCalendarView(
+    //   startOfWeek.format(),
+    //   endOfWeek.format(),
+    //   this.authService.user?.timeZone ?? 'UTC')
+    //     .then((events) => {
+    //       console.log(events);
+    //       this.events = events;
+    //       // Temporary to display raw results
+    //       this.alertsService.addSuccess('Events from Graph', JSON.stringify(events, null, 2));
+    //     }).catch(e => {
+    //       console.log(e);
+    //     });
   }
-  
+
   formatDateTimeTimeZone(dateTime: MicrosoftGraph.DateTimeTimeZone | undefined | null): string {
     if (dateTime == undefined || dateTime == null) {
       return '';
@@ -59,4 +101,3 @@ export class CalendarComponent implements OnInit {
     }
   }
 }
-

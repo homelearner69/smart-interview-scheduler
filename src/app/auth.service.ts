@@ -111,7 +111,7 @@ export class AuthService {
     user.timeZone = graphUser.mailboxSettings?.timeZone ?? 'UTC';
   
     // Use default avatar
-    user.avatar = '/assets/no-profile-photo.png';
+    user.avatar = '/assets/user2.png';
   
     return user;
   }

@@ -17,6 +17,15 @@ import { MsalModule,
 import { OAuthSettings } from '../oauth';
 import { CalendarComponent } from './calendar/calendar.component';
 import { NewEventComponent } from './new-event/new-event.component';
+import { FullCalendarModule } from '@fullcalendar/angular'; // the main connector. must go first
+import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin
+import interactionPlugin from '@fullcalendar/interaction'; // a plugin
+
+
+FullCalendarModule.registerPlugins([ // register FullCalendar plugins
+  dayGridPlugin,
+  interactionPlugin
+]);
 
 let msalInstance: IPublicClientApplication | undefined = undefined;
 
@@ -49,7 +58,8 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     FormsModule,
     AppRoutingModule,
     NgbModule,
-    MsalModule
+    MsalModule,
+    FullCalendarModule
   ],
   providers: [
     {

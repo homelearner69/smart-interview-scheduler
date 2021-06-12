@@ -60,14 +60,31 @@ export class GraphService {
     return undefined;
   }
 
-  async addEventToCalendar(newEvent: MicrosoftGraph.Event): Promise<void> {
+  async getEvents(): Promise<MicrosoftGraph.Event[] | undefined> {
     try {
-      // POST /me/events
-      await this.graphClient
-        .api('/me/events')
-        .post(newEvent);
+      let result = await this.graphClient
+        .api('me/events/')
+        .select('subject,organizer,start,end')
+        .orderby('createdDateTime DESC')
+        .get();
+
+        return result.value;
     } catch (error) {
-      throw Error(JSON.stringify(error, null, 2));
+      //this.alertsService.addError('Could not gg events', JSON.stringify(error, null, 2));
     }
+    return undefined;
   }
+
+  async addEventToCalendar(newEvent: MicrosoftGraph.Event): Promise<void> {
+  try {
+    // POST /me/events
+    await this.graphClient
+      .api('/me/events')
+      .post(newEvent);
+  } catch (error) {
+    throw Error(JSON.stringify(error, null, 2));
+  }
+}
+
+
 }

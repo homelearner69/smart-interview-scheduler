@@ -1,6 +1,7 @@
-<div class="jumbotron">
-    <h1>Angular Graph Tutorial</h1>
-    <p class="lead">This sample app shows how to use the Microsoft Graph API from Angular</p>
+<div style="align: center; text-align:center;">
+  <img src="./assets/mainlogo.png" alt="mainlogo" style="width:250px;height:200px;">
+    <h1>Smart Interview Scheduler</h1>
+    <p class="lead">Smart Interview Scheduler is a side-by-side calendar comparison makes it easy to schedule interviews with multiple participants. </p>
     <div *ngIf="authenticated; then welcomeUser else signInPrompt"></div>
     <ng-template #welcomeUser>
       <h4>Welcome {{ user != null ? user.displayName : '' }}!</h4>

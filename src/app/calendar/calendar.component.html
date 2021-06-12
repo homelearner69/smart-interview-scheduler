@@ -1,6 +1,6 @@
 <h1>Calendar</h1>
 <a class="btn btn-light btn-sm mb-3" routerLink="/newevent">New event</a>
-<table class="table">
+<!-- <table class="table">
   <thead>
     <th scope="col">Organizer</th>
     <th scope="col">Subject</th>
@@ -11,11 +11,14 @@
     <tr *ngFor="let event of events">
       <td>{{event.organizer?.emailAddress?.name}}</td>
       <td>{{event.subject}}</td>
-      <!-- Use 'UTC' in the pipe to date so Angular will not convert the
-            already converted time to local time. See
-            https://angular.io/api/common/DatePipe -->
       <td>{{formatDateTimeTimeZone(event.start) | date:'short' : 'GMT' }}</td>
       <td>{{formatDateTimeTimeZone(event.end) | date: 'short' : 'GMT' }}</td>
     </tr>
   </tbody>
-</table>
+</table> -->
+
+<br>
+
+<full-calendar [options]="calendarOptions"></full-calendar>
+
+<br><br>
