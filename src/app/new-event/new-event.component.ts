@@ -7,6 +7,7 @@ import { NewEvent } from './new-event';
 import { IExcelWorkSheetObj } from 'src/app/utility/app-excel-obj';
 import { ExportExcelService } from 'src/app/shared/export-excel.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-new-event',
@@ -15,7 +16,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 })
 export class NewEventComponent implements OnInit {
 
-  model = new NewEvent();
+  model = new NewEvent(this.datePipe);
   subjectInput = new FormControl();
   startInput = new FormControl();
   attendeesInput = new FormControl();
@@ -43,6 +44,7 @@ export class NewEventComponent implements OnInit {
     private authService: AuthService,
     private graphService: GraphService,
     private exportExcelService: ExportExcelService,
+    private datePipe: DatePipe,
     private alertsService: AlertsService) { }
 
   ngOnInit() {

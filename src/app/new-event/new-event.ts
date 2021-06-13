@@ -1,5 +1,6 @@
 import * as MicrosoftGraph from '@microsoft/microsoft-graph-types';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { DatePipe } from '@angular/common';
 
 // Model for the new event form
 export class NewEvent {
@@ -30,6 +31,11 @@ export class NewEvent {
     StartInput: '',
   }
 
+  constructor(
+    private datePipe: DatePipe
+  ) { }
+
+
   // Generate a MicrosoftGraph.Event from the model
   getGraphEvent(timeZone: string): MicrosoftGraph.Event {
     const graphEvent: MicrosoftGraph.Event = {
@@ -59,6 +65,7 @@ export class NewEvent {
         });
       });
     }
+    
 
     // If there is a body, add it as plain text
     // if (this.body && this.body.length > 0) {
@@ -67,7 +74,7 @@ export class NewEvent {
         content: 'Dear ' + this.candidateName + '\n\nThank you for applying to Keysight' +'.'
         + '\n\nMy name is ' + this.scheduledBy + 'and I am the hiring manager at Keysight'
         + '\n\nI would like to schedule an online interview with you to discuss about your application for the ' + this.jobTitle + ' role'
-        + '\n\nWould you be available for a interview from ' + this.start + ' to ' + this.end
+        + '\n\nWould you be available for a interview from ' + this.datePipe.transform(this.start, 'MMM d,y, h:mmm:ss a') + ' to ' + this.datePipe.transform(this.end, 'MMM d,y, h:mmm:ss a')
         + '\n\nPlease let us know if you are available by accepting / request for another time.'
         + '\n\nLooking forward to hearing from you'
       };
