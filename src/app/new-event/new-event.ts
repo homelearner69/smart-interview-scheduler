@@ -74,7 +74,7 @@ export class NewEvent {
         content: 'Dear ' + this.candidateName + '\n\nThank you for applying to Keysight' +'.'
         + '\n\nMy name is ' + this.scheduledBy + 'and I am the hiring manager at Keysight'
         + '\n\nI would like to schedule an online interview with you to discuss about your application for the ' + this.jobTitle + ' role'
-        + '\n\nWould you be available for a interview from ' + this.datePipe.transform(this.start, 'MMM d,y, h:mmm:ss a') + ' to ' + this.datePipe.transform(this.end, 'MMM d,y, h:mmm:ss a')
+        + '\n\nWould you be available for a interview from ' + this.datePipe.transform(this.start, 'MMM d,y, hh:mm: a') + ' to ' + this.datePipe.transform(this.end, 'MMM d,y, hh:mm:ss a')
         + '\n\nPlease let us know if you are available by accepting / request for another time.'
         + '\n\nLooking forward to hearing from you'
       };
